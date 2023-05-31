@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.room.Room
 import com.example.a160420119_todo.model.Todo
 import com.example.a160420119_todo.model.TodoDatabase
+import com.example.a160420119_todo.util.buildDb
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -16,9 +17,10 @@ class DetailTodoViewModel(application: Application): AndroidViewModel(applicatio
 
     fun addTodo(todo: Todo) {
         launch {
-            val db = Room.databaseBuilder(
-                getApplication(), TodoDatabase::class.java,
-                "tododb").build()
+            val db = buildDb(getApplication())
+//            val db = Room.databaseBuilder(
+//                getApplication(), TodoDatabase::class.java,
+//                "tododb").build()
             db.todoDao().insertAll(todo)
         }
     }
